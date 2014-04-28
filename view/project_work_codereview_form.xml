@@ -16,5 +16,6 @@
     <field name="work"/>
     <separator name="comment" colspan="4"/>
     <field name="comment" colspan="4"/>
-
+    <label name="state"/>
+    <field name="state"/>
 </form>

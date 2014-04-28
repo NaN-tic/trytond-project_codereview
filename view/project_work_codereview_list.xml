@@ -8,4 +8,5 @@
     <field name="category"/>
     <field name="component"/>
     <field name="work"/>
+    <field name="state"/>
 </tree>
