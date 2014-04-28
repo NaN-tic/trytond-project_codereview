@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<!-- The COPYRIGHT file at the top level of this repository contains the full
+     copyright notices and license terms. -->
+<tree string="Project Code Review">
+    <field name="name"/>
+    <field name="url"/>
+    <field name="branch"/>
+    <field name="category"/>
+    <field name="component"/>
+    <field name="work"/>
+</tree>
