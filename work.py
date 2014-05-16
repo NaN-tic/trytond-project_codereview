@@ -19,7 +19,7 @@ class ProjectCodeReview(ModelSQL, ModelView):
         required=True, select=True)
     branch = fields.Char('Branch', required=True, select=True)
     category = fields.Many2One('project.work.component_category', 'Category',
-        required=True, select=True)
+        required=False, select=True)
     component = fields.Many2One('project.work.component', 'Component',
         required=True, select=True)
     comment = fields.Text('comment')
@@ -31,8 +31,8 @@ class ProjectCodeReview(ModelSQL, ModelView):
 
     @classmethod
     def search_codereview_state(cls, name, clause):
-        pool = Pool()        
-        Work = pool.get('project.work')                
+        pool = Pool()
+        Work = pool.get('project.work')
         works = Work.search(clause)
         work_ids = [x.id for x in works]
         return [('work', 'in', work_ids)]
