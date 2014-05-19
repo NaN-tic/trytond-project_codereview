@@ -17,6 +17,7 @@ class ProjectCodeReview(ModelSQL, ModelView):
     url = fields.Char('Url', required=True)
     work = fields.Many2One('project.work', 'Work',
         required=True, select=True)
+    review_id = fields.Char('Review Id', required=True, select=True)
     branch = fields.Char('Branch', required=True, select=True)
     category = fields.Many2One('project.work.component_category', 'Category',
         required=False, select=True)

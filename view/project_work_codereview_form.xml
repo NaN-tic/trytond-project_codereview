@@ -4,12 +4,14 @@
 <form string="Project Code Review">
     <label name="name"/>
     <field name="name"/>
+    <label name="review_id"/>
+    <field name="review_id"/>
     <label name="branch"/>
     <field name="branch"/>
     <label name="category"/>
     <field name="category"/>
     <label name="component"/>
-    <field name="component"/>    
+    <field name="component"/>
     <label name="url"/>
     <field name="url"/>
     <label name="work"/>
