@@ -4,7 +4,7 @@
 <tree string="Project Code Review">
     <field name="name"/>
     <field name="review_id"/>
-    <field name="url"/>
+    <field name="url" widget="url"/>
     <field name="branch"/>
     <field name="category"/>
     <field name="component"/>

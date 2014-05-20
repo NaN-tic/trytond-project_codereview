@@ -13,7 +13,7 @@
     <label name="component"/>
     <field name="component"/>
     <label name="url"/>
-    <field name="url"/>
+    <field name="url" widget="url"/>
     <label name="work"/>
     <field name="work"/>
     <separator name="comment" colspan="4"/>
