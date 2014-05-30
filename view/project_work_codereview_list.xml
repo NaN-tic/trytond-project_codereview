@@ -10,4 +10,6 @@
     <field name="component"/>
     <field name="work"/>
     <field name="state"/>
+    <button name="open" string="Open"/>
+    <button name="done" string="Done"/>
 </tree>

@@ -18,6 +18,14 @@
     <field name="work"/>
     <separator name="comment" colspan="4"/>
     <field name="comment" colspan="4"/>
-    <label name="state"/>
-    <field name="state"/>
+    <group col="4" colspan="6" id="state_buttons">
+        <group col="2" colspan="2" id="state">
+            <label name="state"/>
+            <field name="state"/>
+        </group>
+        <group col="20" colspan="2" id="buttons">
+            <button name="open" string="Open" icon="tryton-go-previous"/>
+            <button name="done" string="Done" icon="tryton-go-next"/>
+        </group>
+    </group>
 </form>
