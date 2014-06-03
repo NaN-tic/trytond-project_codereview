@@ -1,8 +1,8 @@
-# This file is part of Tryton.  The COPYRIGHT file at the top level of
-# this repository contains the full copyright notices and license terms.
+# The COPYRIGHT file at the top level of this repository contains the full
+# copyright notices and license terms.
 from trytond.model import ModelView, ModelSQL, fields
-from trytond.pool import PoolMeta, Pool
-from trytond.pyson import Eval, And
+from trytond.pool import PoolMeta
+from trytond.pyson import Eval
 
 __all__ = ['ProjectCodeReview', 'Work']
 __metaclass__ = PoolMeta
@@ -94,13 +94,15 @@ class Work:
                 })
 
     @classmethod
-    def write(cls, works, vals):
-        if vals.get('state', '') == 'done':
-            for work in works:
-                for codereview in work.codereview:
-                    if codereview.state == 'opened':
-                        cls.raise_user_error('invalid_codereview_state', {
-                                'codereview': codereview.rec_name,
-                                'work': work.rec_name,
-                                })
-        super(Work, cls).write(works, vals)
+    def write(cls, *args):
+        actions = iter(args)
+        for works, vals in zip(actions, actions):
+            if vals.get('state', '') == 'done':
+                for work in works:
+                    for codereview in work.codereview:
+                        if codereview.state == 'opened':
+                            cls.raise_user_error('invalid_codereview_state', {
+                                    'codereview': codereview.rec_name,
+                                    'work': work.rec_name,
+                                    })
+        super(Work, cls).write(*args)
