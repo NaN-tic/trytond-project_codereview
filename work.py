@@ -1,7 +1,7 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
 from trytond.model import ModelView, ModelSQL, fields
-from trytond.pool import PoolMeta
+from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
 
 __all__ = ['ProjectCodeReview', 'Work']
@@ -64,16 +64,34 @@ class ProjectCodeReview(ModelSQL, ModelView):
     @classmethod
     @ModelView.button
     def open(cls, codereviews):
-        for codereview in codereviews:
-            codereview.state = 'opened'
-            codereview.save()
+        cls.write(codereviews, {'state': 'opened'})
 
     @classmethod
     @ModelView.button
     def done(cls, codereviews):
-        for codereview in codereviews:
-            codereview.state = 'done'
-            codereview.save()
+        cls.write(codereviews, {'state': 'done'})
+
+    @classmethod
+    def create(cls, values):
+        pool = Pool()
+        Category = pool.get('project.work.component_category')
+        Component = pool.get('project.work.component')
+        Work = pool.get('project.work')
+        for value in values:
+            task = Work(value.get('work'))
+            component = Component(value.get('component'))
+            if value.get('category'):
+                category = Category(value.get('category'))
+                if not category in task.component_categories:
+                    task.component_categories += (category,)
+                    task.save()
+            if component not in task.components:
+                task.components += (component),
+                if (component.category and
+                        component.category not in task.component_categories):
+                    task.component_categories += (component.category,)
+                task.save()
+        return super(ProjectCodeReview, cls).create(values)
 
 
 class Work:
