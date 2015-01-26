@@ -86,6 +86,16 @@ msgctxt "model:ir.action,name:act_project_work_codereview"
 msgid "Project Code Review"
 msgstr "Revisió de codi"
 
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_project_work_codereview_domain_all"
+msgid "All"
+msgstr "Tots"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_project_work_codereview_domain_opened"
+msgid "Opened"
+msgstr "Oberts"
+
 msgctxt "model:ir.ui.menu,name:menu_project_codereview"
 msgid "Codereviews"
 msgstr "Revisions de codi"
@@ -108,7 +118,7 @@ msgstr "Administrador de Revisions de codi"
 
 msgctxt "selection:project.work.codereview,state:"
 msgid "Done"
-msgstr "Tanca"
+msgstr "Tancat"
 
 msgctxt "selection:project.work.codereview,state:"
 msgid "Opened"
@@ -120,7 +130,7 @@ msgstr "Tanca"
 
 msgctxt "view:project.work.codereview:"
 msgid "Open"
-msgstr "Obra"
+msgstr "Obre"
 
 msgctxt "view:project.work.codereview:"
 msgid "Project Code Review"

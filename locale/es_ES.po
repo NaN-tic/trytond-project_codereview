@@ -86,6 +86,16 @@ msgctxt "model:ir.action,name:act_project_work_codereview"
 msgid "Project Code Review"
 msgstr "Revisión de código"
 
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_project_work_codereview_domain_all"
+msgid "All"
+msgstr "Todos"
+
+msgctxt ""
+"model:ir.action.act_window.domain,name:act_project_work_codereview_domain_opened"
+msgid "Opened"
+msgstr "Abiertos"
+
 msgctxt "model:ir.ui.menu,name:menu_project_codereview"
 msgid "Codereviews"
 msgstr "Revisiones de código"
@@ -112,11 +122,11 @@ msgstr "Realizado"
 
 msgctxt "selection:project.work.codereview,state:"
 msgid "Opened"
-msgstr "Abierta"
+msgstr "Abierto"
 
 msgctxt "view:project.work.codereview:"
 msgid "Done"
-msgstr "Realizado"
+msgstr "Realizar"
 
 msgctxt "view:project.work.codereview:"
 msgid "Open"

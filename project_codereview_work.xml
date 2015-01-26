@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <tryton>
     <data>
-
         <record model="res.group" id="group_project_codereview_admin">
             <field name="name">Project Codereview Administration</field>
         </record>
@@ -13,6 +12,7 @@
             <field name="user" ref="res.user_trigger"/>
             <field name="group" ref="group_project_codereview_admin"/>
         </record>
+
         <record model="res.group" id="group_project_codereview">
             <field name="name">Project Codereview</field>
         </record>
@@ -24,16 +24,20 @@
             <field name="user" ref="res.user_trigger"/>
             <field name="group" ref="group_project_codereview"/>
         </record>
+
+        <!-- project.work.codereview -->
         <record model="ir.ui.view" id="project_work_codereview_view_form">
             <field name="model">project.work.codereview</field>
             <field name="type">form</field>
             <field name="name">project_work_codereview_form</field>
         </record>
+
         <record model="ir.ui.view" id="project_work_codereview_view_list">
             <field name="model">project.work.codereview</field>
             <field name="type">tree</field>
             <field name="name">project_work_codereview_list</field>
         </record>
+
         <record model="ir.action.act_window" id="act_project_work_codereview">
             <field name="name">Project Code Review</field>
             <field name="res_model">project.work.codereview</field>
@@ -48,6 +52,21 @@
             <field name="view" ref="project_work_codereview_view_form"/>
             <field name="act_window" ref="act_project_work_codereview"/>
         </record>
+        <record model="ir.action.act_window.domain"
+                id="act_project_work_codereview_domain_opened">
+            <field name="name">Opened</field>
+            <field name="sequence" eval="10"/>
+            <field name="domain">[('state', '=', 'opened')]</field>
+            <field name="act_window" ref="act_project_work_codereview"/>
+        </record>
+        <record model="ir.action.act_window.domain"
+                id="act_project_work_codereview_domain_all">
+            <field name="name">All</field>
+            <field name="sequence" eval="90"/>
+            <field name="domain"></field>
+            <field name="act_window" ref="act_project_work_codereview"/>
+        </record>
+
         <record model="ir.model.access" id="access_project_work_codereview">
             <field name="model" search="[('model', '=', 'project.work.codereview')]"/>
             <field name="perm_read" eval="True"/>
@@ -55,6 +74,7 @@
             <field name="perm_create" eval="False"/>
             <field name="perm_delete" eval="False"/>
         </record>
+
         <record model="ir.model.access" id="access_project_work_codereview_admin">
             <field name="model" search="[('model', '=', 'project.work.codereview')]"/>
             <field name="group" ref="group_project_codereview_admin"/>
@@ -63,6 +83,8 @@
             <field name="perm_create" eval="True"/>
             <field name="perm_delete" eval="True"/>
         </record>
+
+        <!-- project.work -->
         <record model="ir.ui.view" id="project_work_view_form">
             <field name="model">project.work</field>
             <field name="type">form</field>
