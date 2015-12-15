@@ -3,30 +3,23 @@
 # copyright notices and license terms.
 import unittest
 import trytond.tests.test_tryton
-from trytond.tests.test_tryton import test_view, test_depends
+from trytond.tests.test_tryton import ModuleTestCase
 from trytond.tests.test_tryton import POOL, DB_NAME, USER, CONTEXT
 from trytond.transaction import Transaction
 
 
-class TestCase(unittest.TestCase):
+class TestCase(ModuleTestCase):
     'Test module'
+    module = 'project_codereview'
 
     def setUp(self):
-        trytond.tests.test_tryton.install_module('project_codereview')
+        super(TestCase, self).setUp()
         self.company = POOL.get('company.company')
         self.timesheet_work = POOL.get('timesheet.work')
         self.project_work = POOL.get('project.work')
         self.component = POOL.get('project.work.component')
         self.component_category = POOL.get('project.work.component_category')
         self.codereview = POOL.get('project.work.codereview')
-
-    def test0005views(self):
-        'Test views'
-        test_view('project_codereview')
-
-    def test0006depends(self):
-        'Test depends'
-        test_depends()
 
     def test0010_components(self):
         'Codereview components should be copied to tasks'
@@ -42,6 +35,7 @@ class TestCase(unittest.TestCase):
             task, = self.project_work.create([{
                         'work': t_work.id,
                         'type': 'task',
+                        'company': company.id,
                         }])
             category, = self.component_category.create([{
                         'name': 'Category',
@@ -81,6 +75,7 @@ class TestCase(unittest.TestCase):
 
             task, = self.project_work.create([{
                         'work': t_work.id,
+                        'company': company.id,
                         'type': 'task',
                         }])
             self.codereview.create([{
