@@ -56,14 +56,13 @@
                 id="act_project_work_codereview_domain_opened">
             <field name="name">Opened</field>
             <field name="sequence" eval="10"/>
-            <field name="domain">[('state', '=', 'opened')]</field>
+            <field name="domain" eval="[('state', '=', 'opened')]" pyson="1"/>
             <field name="act_window" ref="act_project_work_codereview"/>
         </record>
         <record model="ir.action.act_window.domain"
                 id="act_project_work_codereview_domain_all">
             <field name="name">All</field>
             <field name="sequence" eval="90"/>
-            <field name="domain"></field>
             <field name="act_window" ref="act_project_work_codereview"/>
         </record>
 
@@ -91,9 +90,9 @@
             <field name="inherit" ref="project.work_view_form"/>
             <field name="name">project_work_form</field>
         </record>
-        
+
         <!-- Menus -->
-        <menuitem id="menu_project_codereview" 
+        <menuitem id="menu_project_codereview"
             parent="project.menu_project"
             name="Codereviews" sequence="1" />
 
@@ -101,12 +100,12 @@
             <field name="menu" ref="menu_project_codereview"/>
             <field name="group" ref="group_project_codereview"/>
           </record>
-          
+
           <record model="ir.ui.menu-res.group" id="menu_project_codereview_group_project_codereview_admin">
             <field name="menu" ref="menu_project_codereview"/>
             <field name="group" ref="group_project_codereview"/>
           </record>
-          
+
         <menuitem action="act_project_work_codereview" id="menu_project_work_codereview" parent="menu_project_codereview" sequence="1" name="Project Code Review"/>
     </data>
 </tryton>
