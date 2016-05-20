@@ -3,50 +3,44 @@
 # copyright notices and license terms.
 import unittest
 import trytond.tests.test_tryton
-from trytond.tests.test_tryton import ModuleTestCase
-from trytond.tests.test_tryton import POOL, DB_NAME, USER, CONTEXT
-from trytond.transaction import Transaction
+from trytond.tests.test_tryton import ModuleTestCase, with_transaction
+from trytond.pool import Pool
+
+from trytond.modules.company.tests import create_company, set_company
 
 
 class TestCase(ModuleTestCase):
     'Test module'
     module = 'project_codereview'
 
-    def setUp(self):
-        super(TestCase, self).setUp()
-        self.company = POOL.get('company.company')
-        self.timesheet_work = POOL.get('timesheet.work')
-        self.project_work = POOL.get('project.work')
-        self.component = POOL.get('project.work.component')
-        self.component_category = POOL.get('project.work.component_category')
-        self.codereview = POOL.get('project.work.codereview')
-
+    @with_transaction()
     def test0010_components(self):
         'Codereview components should be copied to tasks'
-        with Transaction().start(DB_NAME, USER, context=CONTEXT):
-            company, = self.company.search([
-                    ('rec_name', '=', 'Dunder Mifflin'),
-                    ])
+        pool = Pool()
+        Company = pool.get('company.company')
+        TimesheetWork = pool.get('timesheet.work')
+        ProjectWork = pool.get('project.work')
+        Component = pool.get('project.work.component')
+        ComponentCategory = pool.get('project.work.component_category')
+        Codereview = pool.get('project.work.codereview')
 
-            t_work, = self.timesheet_work.create([{
-                        'name': 'Work 1',
-                        'company': company.id,
-                        }])
-            task, = self.project_work.create([{
-                        'work': t_work.id,
+        company = create_company()
+        with set_company(company):
+            task, = ProjectWork.create([{
+                        'name': 'Task 1',
                         'type': 'task',
                         'company': company.id,
                         }])
-            category, = self.component_category.create([{
+            category, = ComponentCategory.create([{
                         'name': 'Category',
                         }])
-            c1, c2 = self.component.create([{
+            c1, c2 = Component.create([{
                         'name': 'Component 1',
                         'category': category.id,
                         }, {
                         'name': 'Component 2',
                         }])
-            self.codereview.create([{
+            Codereview.create([{
                         'name': 'Review1',
                         'url': 'http://codereview',
                         'review_id': '12',
@@ -54,10 +48,10 @@ class TestCase(ModuleTestCase):
                         'component': c1.id,
                         'work': task.id,
                         }])
-            task = self.project_work(task.id)
+            task = ProjectWork(task.id)
             self.assertIn(c1, task.components)
             self.assertIn(category, task.component_categories)
-            self.codereview.create([{
+            Codereview.create([{
                         'name': 'Review2',
                         'url': 'http://codereview',
                         'review_id': '12',
@@ -65,20 +59,15 @@ class TestCase(ModuleTestCase):
                         'component': c2.id,
                         'work': task.id,
                         }])
-            task = self.project_work(task.id)
+            task = ProjectWork(task.id)
             self.assertIn(c2, task.components)
 
-            t_work, = self.timesheet_work.create([{
-                        'name': 'Work 2',
-                        'company': company.id,
-                        }])
-
-            task, = self.project_work.create([{
-                        'work': t_work.id,
-                        'company': company.id,
+            task, = ProjectWork.create([{
+                        'name': 'Task 2',
                         'type': 'task',
+                        'company': company.id,
                         }])
-            self.codereview.create([{
+            Codereview.create([{
                         'name': 'Review2',
                         'url': 'http://codereview',
                         'review_id': '12',
@@ -88,16 +77,12 @@ class TestCase(ModuleTestCase):
                         'work': task.id,
                         }])
 
-            task = self.project_work(task.id)
+            task = ProjectWork(task.id)
             self.assertIn(c2, task.components)
             self.assertIn(category, task.component_categories)
 
 
 def suite():
     suite = trytond.tests.test_tryton.suite()
-    from trytond.modules.company.tests import test_company
-    for test in test_company.suite():
-        if test not in suite:
-            suite.addTest(test)
     suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestCase))
     return suite
