@@ -96,7 +96,7 @@
         <!-- Menus -->
         <menuitem id="menu_project_codereview"
             parent="project.menu_project"
-            name="Codereviews" sequence="1" />
+            name="Codereviews" sequence="10" />
 
           <record model="ir.ui.menu-res.group" id="menu_project_codereview_group_project_codereview">
             <field name="menu" ref="menu_project_codereview"/>

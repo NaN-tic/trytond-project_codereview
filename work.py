@@ -5,7 +5,6 @@ from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
 
 __all__ = ['ProjectCodeReview', 'Work']
-__metaclass__ = PoolMeta
 
 
 class ProjectCodeReview(ModelSQL, ModelView):
@@ -82,7 +81,7 @@ class ProjectCodeReview(ModelSQL, ModelView):
             component = Component(value.get('component'))
             if value.get('category'):
                 category = Category(value.get('category'))
-                if not category in task.component_categories:
+                if category not in task.component_categories:
                     task.component_categories += (category,)
                     task.save()
             if component not in task.components:
@@ -96,6 +95,7 @@ class ProjectCodeReview(ModelSQL, ModelView):
 
 class Work:
     __name__ = 'project.work'
+    __metaclass__ = PoolMeta
 
     codereview = fields.One2Many('project.work.codereview', 'work',
         'Codereviews', states={
