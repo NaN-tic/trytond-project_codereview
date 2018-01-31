@@ -46,4 +46,4 @@ matrix:
           DATABASE: sqlite
         - IMAGE: python:3.6
           TOXENV: py36
-          DATABASE: postgresql.mo
+          DATABASE: postgresql
