@@ -9,7 +9,7 @@ from trytond.pool import Pool
 from trytond.modules.company.tests import create_company, set_company
 
 
-class TestCase(ModuleTestCase):
+class CodeReviewTestCase(ModuleTestCase):
     'Test module'
     module = 'project_codereview'
 
@@ -17,8 +17,6 @@ class TestCase(ModuleTestCase):
     def test0010_components(self):
         'Codereview components should be copied to tasks'
         pool = Pool()
-        Company = pool.get('company.company')
-        TimesheetWork = pool.get('timesheet.work')
         ProjectWork = pool.get('project.work')
         Component = pool.get('project.work.component')
         ComponentCategory = pool.get('project.work.component_category')
@@ -84,5 +82,6 @@ class TestCase(ModuleTestCase):
 
 def suite():
     suite = trytond.tests.test_tryton.suite()
-    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(TestCase))
+    suite.addTests(unittest.TestLoader().loadTestsFromTestCase(
+        CodeReviewTestCase))
     return suite

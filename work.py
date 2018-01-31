@@ -5,7 +5,6 @@ from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
 
 __all__ = ['ProjectCodeReview', 'Work']
-__metaclass__ = PoolMeta
 
 
 class ProjectCodeReview(ModelSQL, ModelView):
@@ -96,6 +95,7 @@ class ProjectCodeReview(ModelSQL, ModelView):
 
 class Work:
     __name__ = 'project.work'
+    __metaclass__ = PoolMeta
 
     codereview = fields.One2Many('project.work.codereview', 'work',
         'Codereviews', states={
