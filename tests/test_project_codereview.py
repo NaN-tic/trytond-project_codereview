@@ -33,6 +33,7 @@ class TestCase(ModuleTestCase):
                         'company': company.id,
                         }])
             task, = self.project_work.create([{
+                        'name': 'Work 1',
                         'work': t_work.id,
                         'type': 'task',
                         'company': company.id,
@@ -74,6 +75,7 @@ class TestCase(ModuleTestCase):
                         }])
 
             task, = self.project_work.create([{
+                        'name': 'Work 2',
                         'work': t_work.id,
                         'company': company.id,
                         'type': 'task',
