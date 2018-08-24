@@ -93,9 +93,8 @@ class ProjectCodeReview(ModelSQL, ModelView):
         return super(ProjectCodeReview, cls).create(values)
 
 
-class Work:
+class Work(metaclass=PoolMeta):
     __name__ = 'project.work'
-    __metaclass__ = PoolMeta
 
     codereview = fields.One2Many('project.work.codereview', 'work',
         'Codereviews', states={
