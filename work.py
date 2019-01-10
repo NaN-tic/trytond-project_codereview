@@ -3,6 +3,8 @@
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval
+from trytond.i18n import gettext
+from trytond.exceptions import UserError
 
 __all__ = ['ProjectCodeReview', 'Work']
 
@@ -30,10 +32,6 @@ class ProjectCodeReview(ModelSQL, ModelView):
     @classmethod
     def __setup__(cls):
         super(ProjectCodeReview, cls).__setup__()
-        cls._error_messages.update({
-                'invalid_work_state': ('Code Review "%(codereview)s" can not '
-                    'be opened because its work "%(work)s" is already done.'),
-                })
         cls._buttons.update({
                 'open': {
                     'invisible': Eval('state') == 'opened',
@@ -55,10 +53,9 @@ class ProjectCodeReview(ModelSQL, ModelView):
 
     def check_state(self):
         if self.state == 'opened' and self.work.state == 'done':
-            self.raise_user_error('invalid_work_state', {
-                    'codereview': self.rec_name,
-                    'work': self.work.rec_name,
-                    })
+            raise UserError(gettext('project_codereview.invalid_work_state',
+                    codereview=self.rec_name,
+                    work=self.work.rec_name))
 
     @classmethod
     @ModelView.button
@@ -101,14 +98,6 @@ class Work(metaclass=PoolMeta):
             'invisible': Eval('type') != 'task',
             }, depends=['type'])
 
-    @classmethod
-    def __setup__(cls):
-        super(Work, cls).__setup__()
-        cls._error_messages.update({
-                'invalid_codereview_state': (
-                    'Work "%(work)s" can not be set done because its '
-                    'codereview "%(codereview)s" is still opened.'),
-                })
 
     @classmethod
     def write(cls, *args):
@@ -118,8 +107,8 @@ class Work(metaclass=PoolMeta):
                 for work in works:
                     for codereview in work.codereview:
                         if codereview.state == 'opened':
-                            cls.raise_user_error('invalid_codereview_state', {
-                                    'codereview': codereview.rec_name,
-                                    'work': work.rec_name,
-                                    })
+                            raise UserError(gettext(
+                                'project_codereview.invalid_codereview_state',
+                                    codereview=codereview.rec_name,
+                                    work=work.rec_name))
         super(Work, cls).write(*args)
