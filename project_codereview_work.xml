@@ -102,7 +102,6 @@
         <!-- project.work -->
         <record model="ir.ui.view" id="project_work_view_form">
             <field name="model">project.work</field>
-            <field name="type" eval="None"/>
             <field name="inherit" ref="project.work_view_form"/>
             <field name="name">project_work_form</field>
         </record>
