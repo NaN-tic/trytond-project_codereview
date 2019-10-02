@@ -24,8 +24,8 @@
             <field name="state"/>
         </group>
         <group col="20" colspan="2" id="buttons">
-            <button name="open" string="Open" icon="tryton-back"/>
-            <button name="done" string="Done" icon="tryton-forward"/>
+            <button name="open"/>
+            <button name="done"/>
         </group>
     </group>
 </form>
