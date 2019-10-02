@@ -24,8 +24,7 @@
             <field name="string">Open</field>
             <field name="model" search="[('model', '=', 'project.work.codereview')]"/>
         </record>
-        <record model="ir.model.button-res.group"
-          id="open_codereiew_group">
+        <record model="ir.model.button-res.group" id="open_codereiew_group">
           <field name="button" ref="open_codereview_button"/>
           <field name="group" ref="group_project_codereview"/>
       </record>
@@ -34,8 +33,7 @@
           <field name="string">Done</field>
           <field name="model" search="[('model', '=', 'project.work.codereview')]"/>
       </record>
-      <record model="ir.model.button-res.group"
-        id="done_codereiew_group">
+      <record model="ir.model.button-res.group" id="done_codereiew_group">
         <field name="button" ref="done_codereview_button"/>
         <field name="group" ref="group_project_codereview"/>
     </record>
