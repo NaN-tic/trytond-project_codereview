@@ -35,9 +35,11 @@ class ProjectCodeReview(ModelSQL, ModelView):
         cls._buttons.update({
                 'open': {
                     'invisible': Eval('state') == 'opened',
+                    'icon': 'tryton-back',
                     },
                 'done': {
                     'invisible': Eval('state') == 'done',
+                    'icon': 'tryton-forward',
                     },
                 })
 
