@@ -6,8 +6,6 @@ from trytond.pyson import Eval
 from trytond.i18n import gettext
 from trytond.exceptions import UserError
 
-__all__ = ['ProjectCodeReview', 'Work']
-
 
 class ProjectCodeReview(ModelSQL, ModelView):
     'Project Code Review'
@@ -54,7 +52,7 @@ class ProjectCodeReview(ModelSQL, ModelView):
             codereview.check_state()
 
     def check_state(self):
-        if self.state == 'opened' and self.work.state == 'done':
+        if self.state == 'opened' and self.work.status.progress == 1:
             raise UserError(gettext('project_codereview.invalid_work_state',
                     codereview=self.rec_name,
                     work=self.work.rec_name))
@@ -100,17 +98,18 @@ class Work(metaclass=PoolMeta):
             'invisible': Eval('type') != 'task',
             }, depends=['type'])
 
-
     @classmethod
-    def write(cls, *args):
-        actions = iter(args)
-        for works, vals in zip(actions, actions):
-            if vals.get('state', '') == 'done':
-                for work in works:
-                    for codereview in work.codereview:
-                        if codereview.state == 'opened':
-                            raise UserError(gettext(
-                                'project_codereview.invalid_codereview_state',
-                                    codereview=codereview.rec_name,
-                                    work=work.rec_name))
-        super(Work, cls).write(*args)
+    def validate(cls, works):
+        super().validate(works)
+        for work in works:
+            work.check_codereview()
+
+    def check_codereview(self):
+        if self.status.progress != 1:
+            return
+        for codereview in self.codereview:
+            if codereview.state == 'opened':
+                raise UserError(gettext(
+                    'project_codereview.invalid_codereview_state',
+                        codereview=codereview.rec_name,
+                        work=self.rec_name))
