@@ -11,21 +11,21 @@ class ProjectCodeReview(ModelSQL, ModelView):
     'Project Code Review'
     __name__ = 'project.work.codereview'
 
-    name = fields.Char('Name', required=True, select=True)
+    name = fields.Char('Name', required=True)
     url = fields.Char('Url', required=True)
     work = fields.Many2One('project.work', 'Work',
-        required=True, select=True)
-    review_id = fields.Char('Review Id', required=True, select=True)
-    branch = fields.Char('Branch', required=True, select=True)
+        required=True)
+    review_id = fields.Char('Review Id', required=True)
+    branch = fields.Char('Branch', required=True)
     category = fields.Many2One('project.work.component_category', 'Category',
-        required=False, select=True)
+        required=False)
     component = fields.Many2One('project.work.component', 'Component',
-        required=True, select=True)
+        required=True)
     comment = fields.Text('comment')
     state = fields.Selection([
             ('opened', 'Opened'),
             ('done', 'Done'),
-            ], 'State', required=True, readonly=True, select=True)
+            ], 'State', required=True, readonly=True)
 
     @classmethod
     def __setup__(cls):
