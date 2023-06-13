@@ -1,10 +1,10 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
+from trytond.exceptions import UserError
+from trytond.i18n import gettext
 from trytond.model import ModelView, ModelSQL, fields
 from trytond.pool import Pool, PoolMeta
-from trytond.pyson import Eval
-from trytond.i18n import gettext
-from trytond.exceptions import UserError
+from trytond.pyson import Eval, If
 
 
 class ProjectCodeReview(ModelSQL, ModelView):
@@ -44,6 +44,12 @@ class ProjectCodeReview(ModelSQL, ModelView):
     @staticmethod
     def default_state():
         return 'opened'
+
+    @classmethod
+    def view_attributes(cls):
+        return super().view_attributes() + [
+            ('/tree', 'visual', If(Eval('state') == 'done', 'muted', '')),
+            ]
 
     @classmethod
     def validate(cls, codereviews):
