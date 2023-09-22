@@ -74,16 +74,17 @@ class ProjectCodeReview(ModelSQL, ModelView):
         cls.write(codereviews, {'state': 'done'})
 
     @classmethod
-    def create(cls, values):
+    def create(cls, vlist):
         pool = Pool()
         Category = pool.get('project.work.component_category')
         Component = pool.get('project.work.component')
         Work = pool.get('project.work')
-        for value in values:
-            task = Work(value.get('work'))
-            component = Component(value.get('component'))
-            if value.get('category'):
-                category = Category(value.get('category'))
+
+        for values in vlist:
+            task = Work(values.get('work'))
+            component = Component(values.get('component'))
+            if values.get('category'):
+                category = Category(values.get('category'))
                 if not category in task.component_categories:
                     task.component_categories += (category,)
                     task.save()
@@ -93,13 +94,13 @@ class ProjectCodeReview(ModelSQL, ModelView):
                         component.category not in task.component_categories):
                     task.component_categories += (component.category,)
                 task.save()
-        return super(ProjectCodeReview, cls).create(values)
+        return super(ProjectCodeReview, cls).create(vlist)
 
 
 class Work(metaclass=PoolMeta):
     __name__ = 'project.work'
 
-    codereview = fields.One2Many('project.work.codereview', 'work',
+    codereviews = fields.One2Many('project.work.codereview', 'work',
         'Codereviews', states={
             'invisible': Eval('type') != 'task',
             }, depends=['type'])
@@ -108,12 +109,12 @@ class Work(metaclass=PoolMeta):
     def validate(cls, works):
         super().validate(works)
         for work in works:
-            work.check_codereview()
+            work.check_codereviews()
 
-    def check_codereview(self):
+    def check_codereviews(self):
         if self.status.progress != 1:
             return
-        for codereview in self.codereview:
+        for codereview in self.codereviews:
             if codereview.state == 'opened':
                 raise UserError(gettext(
                     'project_codereview.invalid_codereview_state',
