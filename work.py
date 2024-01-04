@@ -80,6 +80,7 @@ class ProjectCodeReview(ModelSQL, ModelView):
         Component = pool.get('project.work.component')
         Work = pool.get('project.work')
 
+        vlist = [x.copy() for x in vlist]
         for values in vlist:
             task = Work(values.get('work'))
             component = Component(values.get('component'))
