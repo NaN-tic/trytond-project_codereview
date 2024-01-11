@@ -104,7 +104,7 @@ class Work(metaclass=PoolMeta):
     codereviews = fields.One2Many('project.work.codereview', 'work',
         'Codereviews', states={
             'invisible': Eval('type') != 'task',
-            }, depends=['type'])
+            })
 
     @classmethod
     def validate(cls, works):
