@@ -27,17 +27,16 @@
         <record model="ir.model.button-res.group" id="open_codereiew_group">
           <field name="button" ref="open_codereview_button"/>
           <field name="group" ref="group_project_codereview"/>
-      </record>
-      <record model="ir.model.button" id="done_codereview_button">
-          <field name="name">done</field>
-          <field name="string">Done</field>
-          <field name="model" search="[('model', '=', 'project.work.codereview')]"/>
-      </record>
-      <record model="ir.model.button-res.group" id="done_codereiew_group">
-        <field name="button" ref="done_codereview_button"/>
-        <field name="group" ref="group_project_codereview"/>
-    </record>
-
+        </record>
+        <record model="ir.model.button" id="done_codereview_button">
+            <field name="name">done</field>
+            <field name="string">Done</field>
+            <field name="model" search="[('model', '=', 'project.work.codereview')]"/>
+        </record>
+        <record model="ir.model.button-res.group" id="done_codereiew_group">
+          <field name="button" ref="done_codereview_button"/>
+          <field name="group" ref="group_project_codereview"/>
+        </record>
 
         <!-- project.work.codereview -->
         <record model="ir.ui.view" id="project_work_codereview_view_form">
@@ -53,7 +52,7 @@
         </record>
 
         <record model="ir.action.act_window" id="act_project_work_codereview">
-            <field name="name">Project Code Review</field>
+            <field name="name">Code Reviews</field>
             <field name="res_model">project.work.codereview</field>
         </record>
         <record model="ir.action.act_window.view" id="act_project_work_codereview_view1">
@@ -105,20 +104,16 @@
         </record>
 
         <!-- Menus -->
-        <menuitem id="menu_project_codereview"
-            parent="project.menu_project"
-            name="Codereviews" sequence="1" />
+        <menuitem parent="project.menu_project" action="act_project_work_codereview" id="menu_project_work_codereview" sequence="50"/>
 
-          <record model="ir.ui.menu-res.group" id="menu_project_codereview_group_project_codereview">
-            <field name="menu" ref="menu_project_codereview"/>
-            <field name="group" ref="group_project_codereview"/>
-          </record>
+        <record model="ir.ui.menu-res.group" id="menu_project_codereview_group_project_codereview">
+          <field name="menu" ref="menu_project_work_codereview"/>
+          <field name="group" ref="group_project_codereview"/>
+        </record>
 
-          <record model="ir.ui.menu-res.group" id="menu_project_codereview_group_project_codereview_admin">
-            <field name="menu" ref="menu_project_codereview"/>
-            <field name="group" ref="group_project_codereview"/>
-          </record>
-
-        <menuitem action="act_project_work_codereview" id="menu_project_work_codereview" parent="menu_project_codereview" sequence="1" name="Project Code Review"/>
+        <record model="ir.ui.menu-res.group" id="menu_project_codereview_group_project_codereview_admin">
+          <field name="menu" ref="menu_project_work_codereview"/>
+          <field name="group" ref="group_project_codereview"/>
+        </record>
     </data>
 </tryton>
