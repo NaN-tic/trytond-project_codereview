@@ -22,7 +22,7 @@
         <record model="ir.model.button" id="open_codereview_button">
             <field name="name">open</field>
             <field name="string">Open</field>
-            <field name="model" search="[('model', '=', 'project.work.codereview')]"/>
+            <field name="model">project.work.codereview</field>
         </record>
         <record model="ir.model.button-res.group" id="open_codereiew_group">
           <field name="button" ref="open_codereview_button"/>
@@ -31,7 +31,7 @@
         <record model="ir.model.button" id="done_codereview_button">
             <field name="name">done</field>
             <field name="string">Done</field>
-            <field name="model" search="[('model', '=', 'project.work.codereview')]"/>
+            <field name="model">project.work.codereview</field>
         </record>
         <record model="ir.model.button-res.group" id="done_codereiew_group">
           <field name="button" ref="done_codereview_button"/>
@@ -80,7 +80,7 @@
         </record>
 
         <record model="ir.model.access" id="access_project_work_codereview">
-            <field name="model" search="[('model', '=', 'project.work.codereview')]"/>
+            <field name="model">project.work.codereview</field>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="False"/>
             <field name="perm_create" eval="False"/>
@@ -88,7 +88,7 @@
         </record>
 
         <record model="ir.model.access" id="access_project_work_codereview_admin">
-            <field name="model" search="[('model', '=', 'project.work.codereview')]"/>
+            <field name="model">project.work.codereview</field>
             <field name="group" ref="group_project_codereview_admin"/>
             <field name="perm_read" eval="True"/>
             <field name="perm_write" eval="True"/>
