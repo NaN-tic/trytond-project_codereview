@@ -45,7 +45,7 @@ class ProjectCodeReview(ModelSQL, ModelView):
         cls._sql_constraints += [
             ('url_exclude', Exclude(t, (t.url, Equal),
                     where=(t.state == 'opened')),
-                'product.msg_codereview_url_unique'),
+                'project_codereview.msg_codereview_url_unique'),
             ]
 
     @staticmethod
