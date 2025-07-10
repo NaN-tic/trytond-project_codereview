@@ -1,8 +1,9 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
+from sql.operators import Equal
 from trytond.exceptions import UserError
 from trytond.i18n import gettext
-from trytond.model import ModelView, ModelSQL, fields
+from trytond.model import Exclude, ModelView, ModelSQL, fields
 from trytond.pool import Pool, PoolMeta
 from trytond.pyson import Eval, If
 
@@ -29,7 +30,7 @@ class ProjectCodeReview(ModelSQL, ModelView):
 
     @classmethod
     def __setup__(cls):
-        super(ProjectCodeReview, cls).__setup__()
+        super().__setup__()
         cls._buttons.update({
                 'open': {
                     'invisible': Eval('state') == 'opened',
@@ -40,6 +41,12 @@ class ProjectCodeReview(ModelSQL, ModelView):
                     'icon': 'tryton-forward',
                     },
                 })
+        t = cls.__table__()
+        cls._sql_constraints += [
+            ('url_exclude', Exclude(t, (t.url, Equal),
+                    where=(t.state == 'opened')),
+                'product.msg_codereview_url_unique'),
+            ]
 
     @staticmethod
     def default_state():
