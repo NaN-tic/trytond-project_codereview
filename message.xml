@@ -3,11 +3,14 @@
 this repository contains the full copyright notices and license terms. -->
 <tryton>
     <data grouped="1">
-      <record model="ir.message" id="invalid_work_state">
-          <field name="text">Code Review "%(codereview)s" can not be opened because its work "%(work)s" is already done</field>
-      </record>
-      <record model="ir.message" id="invalid_codereview_state">
-          <field name="text">Work "%(work)s" can not be set done because its codereview "%(codereview)s" is still opened.</field>
-      </record>
+        <record model="ir.message" id="invalid_work_state">
+            <field name="text">Code Review "%(codereview)s" can not be opened because its work "%(work)s" is already done</field>
+        </record>
+        <record model="ir.message" id="invalid_codereview_state">
+            <field name="text">Work "%(work)s" can not be set done because its codereview "%(codereview)s" is still opened.</field>
+        </record>
+        <record model="ir.message" id="msg_codereview_url_unique">
+            <field name="text">URL must be unique.</field>
+        </record>
     </data>
 </tryton>
