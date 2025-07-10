@@ -40,7 +40,7 @@ class ProjectCodereviewTestCase(CompanyTestMixin, ModuleTestCase):
                         }])
             Codereview.create([{
                         'name': 'Review1',
-                        'url': 'http://codereview',
+                        'url': 'http://codereview/1',
                         'review_id': '12',
                         'branch': 'default',
                         'component': c1.id,
@@ -51,7 +51,7 @@ class ProjectCodereviewTestCase(CompanyTestMixin, ModuleTestCase):
             self.assertIn(category, task.component_categories)
             Codereview.create([{
                         'name': 'Review2',
-                        'url': 'http://codereview',
+                        'url': 'http://codereview/2',
                         'review_id': '12',
                         'branch': 'default',
                         'component': c2.id,
@@ -67,7 +67,7 @@ class ProjectCodereviewTestCase(CompanyTestMixin, ModuleTestCase):
                         }])
             Codereview.create([{
                         'name': 'Review2',
-                        'url': 'http://codereview',
+                        'url': 'http://codereview/3',
                         'review_id': '12',
                         'branch': 'default',
                         'component': c2.id,
