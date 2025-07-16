@@ -1,22 +1,6 @@
-# 
+#
 msgid ""
 msgstr "Content-Type: text/plain; charset=utf-8\n"
-
-msgctxt "error:project.work.codereview:"
-msgid ""
-"Code Review \"%(codereview)s\" can not be opened because its work "
-"\"%(work)s\" is already done."
-msgstr ""
-"La revisió de codi \"%(codereview)s\" no pot ser oberta perquè la tasca "
-"\"%(work)s\" ja està tancada."
-
-msgctxt "error:project.work:"
-msgid ""
-"Work \"%(work)s\" can not be set done because its codereview "
-"\"%(codereview)s\" is still opened."
-msgstr ""
-"La tasca \"%(work)s\" no pot ser tancada perquè la seva revisió de codi "
-"\"%(codereview)s\" encara és oberta."
 
 msgctxt "field:project.work,codereview:"
 msgid "Codereviews"
