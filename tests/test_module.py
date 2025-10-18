@@ -1,4 +1,3 @@
-
 # This file is part of Tryton.  The COPYRIGHT file at the top level of
 # this repository contains the full copyright notices and license terms.
 
@@ -52,7 +51,7 @@ class ProjectCodereviewTestCase(CompanyTestMixin, ModuleTestCase):
             Codereview.create([{
                         'name': 'Review2',
                         'url': 'http://codereview/2',
-                        'review_id': '12',
+                        'review_id': '13',
                         'branch': 'default',
                         'component': c2.id,
                         'work': task.id,
@@ -66,9 +65,9 @@ class ProjectCodereviewTestCase(CompanyTestMixin, ModuleTestCase):
                         'company': company.id,
                         }])
             Codereview.create([{
-                        'name': 'Review2',
+                        'name': 'Review3',
                         'url': 'http://codereview/3',
-                        'review_id': '12',
+                        'review_id': '14',
                         'branch': 'default',
                         'component': c2.id,
                         'category': category.id,
@@ -78,6 +77,22 @@ class ProjectCodereviewTestCase(CompanyTestMixin, ModuleTestCase):
             task = ProjectWork(task.id)
             self.assertIn(c2, task.components)
             self.assertIn(category, task.component_categories)
+
+            # Test modifying codereview
+            codereview = Codereview.search([('work', '=', task.id)])[0]
+            Codereview.write([codereview], {
+                    'component': c1.id,
+                    })
+            task = ProjectWork(task.id)
+            self.assertIn(c1, task.components)
+            self.assertIn(category, task.component_categories)
+            self.assertNotIn(c2, task.components)
+
+            # Test deleting codereview
+            Codereview.delete([codereview])
+            task = ProjectWork(task.id)
+            self.assertNotIn(c1, task.components)
+            self.assertNotIn(category, task.component_categories)
 
 
 del ModuleTestCase
