@@ -1,7 +1,7 @@
 # The COPYRIGHT file at the top level of this repository contains the full
 # copyright notices and license terms.
 from sql.operators import Equal
-from trytond.exceptions import UserError
+from trytond.model.exceptions import ValidationError
 from trytond.i18n import gettext
 from trytond.model import Exclude, ModelView, ModelSQL, fields
 from trytond.pool import Pool, PoolMeta
@@ -66,7 +66,7 @@ class ProjectCodeReview(ModelSQL, ModelView):
 
     def check_state(self):
         if self.state == 'opened' and self.work.status.progress == 1:
-            raise UserError(gettext('project_codereview.invalid_work_state',
+            raise ValidationError(gettext('project_codereview.invalid_work_state',
                     codereview=self.rec_name,
                     work=self.work.rec_name))
 
@@ -144,7 +144,7 @@ class Work(metaclass=PoolMeta):
             return
         for codereview in self.codereviews:
             if codereview.state == 'opened':
-                raise UserError(gettext(
+                raise ValidationError(gettext(
                     'project_codereview.invalid_codereview_state',
                         codereview=codereview.rec_name,
                         work=self.rec_name))
